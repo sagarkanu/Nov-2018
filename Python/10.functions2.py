@@ -16,3 +16,4 @@ def addWithOptionalArgs(a,b=10,c=20):
 print(addWithOptionalArgs(5, 26))
 print(addWithOptionalArgs(5,c=26))
 print(addWithOptionalArgs(b=2,c=26)) #missing 1 required positional argument: 'a'
+
