@@ -32,3 +32,4 @@ age = [1,2,3,4,]
 #i = 0
 age = list(map(lambda e:e+10, age)) #labda is replacing incr function here.
 print(age)
+
