@@ -6,6 +6,7 @@ Created on Thu Nov 15 15:20:44 2018
 """
 
 import pandas as pd
+import os
 from sklearn import tree #For Decissin Tree
 
 #Read Train Data file
