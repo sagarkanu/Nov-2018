@@ -86,4 +86,6 @@ X_test = titanic2[titanic_train.shape[0]:]
 X_test.shape
 X_test.info()
 
+titanic_test['Survived'] = grid_voting_estimator.predict(X_test)
+
 titanic_test.to_csv('submission_Voting.csv', columns=['PassengerId','Survived'],index=False)
