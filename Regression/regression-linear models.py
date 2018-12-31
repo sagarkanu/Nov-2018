@@ -102,8 +102,18 @@ house_train1 = transform_cat_cont(house_train1, get_categorical_features(house_t
 X_train = house_train1
 y_train = house_train['SalePrice']
 
-selector = ensemble.RandomForestRegressor(random_state=100)
+selector = ensemble.RandomForestClassifier(random_state=100)
 X_train1 = select_features_from_model(selector, X_train, y_train)
 
 linr_estimator = linear_model.LinearRegression()
 linr_estimator.fit(X_train1, y_train)
+coef = linr_estimator.coef_
+intercept = linr_estimator.intercept_
+#crossVal = model_selection.cross_val_score(linr_estimator, X_train1, y_train, cv=10, scoring=metrics.make_scorer(rmse))
+#New method: cross_validate
+crossValidate = model_selection.cross_validate(linr_estimator, X_train1, y_train, cv=10, scoring=metrics.make_scorer(rmse))
+crossValidate.get('fit_time').mean()
+crossValidate.get('score_time').mean()
+crossValidate.get('test_score').mean() #0.171
+crossValidate.get('train_score').mean() #0.1592
+#Usually train score is more than CV score. However this is loss and hence train score is smaller than the CV score.
