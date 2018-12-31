@@ -40,7 +40,7 @@ bag_tree_estimator2 = ensemble.BaggingClassifier(base_estimator = dt_estimator, 
 bag_grid = {'criterion':['entropy','gini']}
 
 bag_grid_estimator = model_selection.GridSearchCV(bag_tree_estimator2, bag_grid, n_jobs=6)
-bag_tree_estimator2.fit(X_train, y_train)
+bag_grid_estimator.fit(X_train, y_train)
 
 #extracting all the trees build by random forest algorithm
 n_tree = 0
