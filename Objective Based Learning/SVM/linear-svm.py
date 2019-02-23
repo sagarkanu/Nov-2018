@@ -88,6 +88,6 @@ final_model.intercept_
 X_test = titanic2[titanic_train.shape[0]:]
 X_test.shape
 X_test.info()
-titanic_test['Survived'] = grid_lsvm_estimator.predict_Prob(X_test)
+titanic_test['Survived'] = grid_lsvm_estimator.predict(X_test)
 
 titanic_test.to_csv('submission_lSVM.csv', columns=['PassengerId','Survived'],index=False)
