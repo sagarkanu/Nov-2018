@@ -49,6 +49,7 @@ for line in f:
 	embeddings_index[word] = coefs
 f.close()
 
+
 print('Loaded %s word vectors.' % len(embeddings_index))
 # create a weight matrix for words in training docs
 embedding_matrix = zeros((vocab_size, 50))
