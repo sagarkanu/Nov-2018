@@ -17,7 +17,6 @@ from nltk import word_tokenize
 from nltk.corpus import stopwords
 import re
 from sklearn.metrics import mean_squared_error
-#import nltk
 
 train_dir = 'D:/Data Science/Data/sentense semantics similarity/'
 test_dir = 'D:/Data Science/Data/sentense semantics similarity/'
