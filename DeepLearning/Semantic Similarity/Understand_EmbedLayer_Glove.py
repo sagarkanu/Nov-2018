@@ -3,7 +3,7 @@
 Created on Wed Feb 27 22:53:12 2019
 
 """
-#Source: Machine Learning Maestry
+#Source: Machine Learning Maestry 
 
 from numpy import array
 from numpy import asarray
