@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 """
+
 @author: Sreenivas.J
 """
 
 import pandas as pd
 import os
 from sklearn import preprocessing
-from sklearn import svm
+from sklearn import naive_bayes 
 from sklearn import model_selection
 
 #changes working directory
-os.chdir("D:/Data Science/Data")
+os.chdir("D:/Data Science/Data/")
 
 titanic_train = pd.read_csv("titanic_train.csv")
 titanic_train.shape
@@ -21,7 +22,6 @@ titanic_test.shape
 titanic_test.info()
 titanic_test.Survived = None
 
-#it gives the same never of levels for all the categorical variables
 titanic = pd.concat([titanic_train, titanic_test])
 
 #create title column from name
@@ -73,21 +73,32 @@ X_train.shape
 X_train.info()
 y_train = titanic_train['Survived']
 
-lsvm_estimator = svm.LinearSVC(random_state=2017) #Linear Support Vector Classification
-lsvm_grid = {'C':[0.1] } #C: SVM regularization parameter
-grid_lsvm_estimator = model_selection.GridSearchCV(lsvm_estimator, lsvm_grid, cv=10, n_jobs=1)
-grid_lsvm_estimator.fit(X_train, y_train)
-print(grid_lsvm_estimator.grid_scores_)
-print(grid_lsvm_estimator.best_score_)
-print(grid_lsvm_estimator.best_params_)
-print(grid_lsvm_estimator.score(X_train, y_train))
-final_model = grid_lsvm_estimator.best_estimator_
-final_model.coef_
-final_model.intercept_
+
+nb_estimator = naive_bayes.GaussianNB()
+#nb_estimator = naive_bayes.MultinomialNB() #For Multinomial classification
+
+mean_cv_score = model_selection.cross_val_score(nb_estimator, X_train, y_train, cv=10).mean()
+nb_estimator.fit(X_train, y_train)
+
+#nb_estimator.class_prior_
+#mean
+#nb_estimator.sigma_
+#Deviation
+#nb_estimator.theta_
 
 X_test = titanic2[titanic_train.shape[0]:]
 X_test.shape
 X_test.info()
-titanic_test['Survived'] = grid_lsvm_estimator.predict(X_test)
 
-titanic_test.to_csv('submission_lSVM.csv', columns=['PassengerId','Survived'],index=False)
+titanic_test['Survived'] = nb_estimator.predict(X_test)
+titanic_test.to_csv('submission_GaussianNB.csv', columns=['PassengerId','Survived'],index=False)
+#titanic_test.to_csv('submission_BernoulliNB.csv', columns=['PassengerId','Survived'],index=False)
+#titanic_test.to_csv('submission_MultinomialNB.csv', columns=['PassengerId','Survived'],index=False)
+
+#.predict_prob will work only after .predict
+#predict_proba will give the probability based output classification
+titanic_test['Survived'] = nb_estimator.predict_proba(X_test)
+titanic_test.to_csv('submission_GaussianNB_prob.csv', columns=['PassengerId','Survived'],index=False)
+#titanic_test.to_csv('submission_BernoulliNB_prob.csv', columns=['PassengerId','Survived'],index=False)
+#titanic_test.to_csv('submission_MultinomialNB_prob.csv', columns=['PassengerId','Survived'],index=False)
+
